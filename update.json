@@ -1,0 +1,12 @@
+{
+  "generatedAt": "2026-10-29T12:42:45Z",
+  "preview": null,
+  "schemaVersion": 1,
+  "stable": {
+    "notes": "## What's new in CoderPlayer 0.6.5\n\n\n状态：正式发布，2026-10-29。\n\n### 图片与媒体库性能\n\n- 详情页不再读取未展示的竖版海报，只加载实际呈现的横向主图。\n- 详情主图、剧照、演员头像和图片选择预览按显示尺寸解码，完整图片仍可在全屏查看时使用。\n- 图片磁盘缓存的 LRU 访问时间按 5 分钟节流；缓存大小改用 SQLite 聚合计算，淘汰只读取按时间排序的远程图片记录。\n- 搜索、排序、资料状态和标签筛选只刷新总数与影片页；来源、标签、移除库计数和继续观看仅在各自依赖范围变化时重查。\n\n### MPV 播放稳定性与诊断\n\n- 播放请求明确区分本机与 115 回环代理，不再通过 `127.0.0.1` 地址猜测来源或错误类型。\n- 115 代理增加不含 URL、header、token 或 pickCode 的会话指标，包括请求、Range、刷新、转发字节、状态码和流中断计数；播放失败后保留最后一份脱敏诊断。\n- 115 上游读取增加 60 秒无数据超时，避免断流后永久等待；不增加自动重试或重定向。\n- 播放器显示 MPV 缓冲进度和已缓存区间；硬解失败并成功回退软件解码时给出明确提示。\n- 播放进度保存周期从 5 秒调整为 15 秒，并使用 latest-wins 合并写入；暂停、退后台、退出和播放完成仍强制等待最终进度落盘。\n\n### MPV 播放体验\n\n- 可选自动匹配视频帧率，仅向 Android Surface 请求无缝刷新率切换；默认关闭，退出播放器时清除请求。\n- 连续位置和缓冲更新按 200 毫秒窗口合并 UI 通知，播放状态、错误、轨道、时长和画面参数仍立即更新。\n- 115 回环播放使用 64 MiB 前向、16 MiB 后退的有界 MPV 缓存，本机文件保持现有默认缓存。\n- schema 5 按影片保存字幕选择或关闭状态，并支持中文、英文、日文优先；字幕 URL 和代理 token 不入库。\n- 支持章节、命名时间书签、精确时间跳转、A-B 循环、1～3 倍缩放、双指缩放和平移。\n- 支持 15/30/60 分钟或影片结束后的睡眠定时，并可配置结束后停留、重播或退出播放器。\n- 当前视频帧可保存为横向背景，或进入既有 2:3 裁剪流程保存为竖版海报；临时截图读取后立即删除。\n\n### 工程维护\n\n- README 同步当前文件管理、实验元数据来源和 Flutter 版本边界。\n- Android app JVM 测试命令补充 `-p android`，可从仓库根目录直接运行。\n- 新增测试锁定详情图片请求边界、图片缓存写入节流和媒体库局部刷新意图。\n\n### 验证边界\n\n- 静态分析、332 项 Flutter 离线测试和 30 项 Android app JVM 测试通过。\n- arm64 Debug 与正式签名 Release APK 构建通过；真实帧率切换、115 缓存、HDR/HDMI 和目标设备手势仍需真机验收。\n\n\n## 下载与安装\n\nCoderPlayer 当前只提供 Android `arm64-v8a` 安装包：\n\n系统要求：Android 11 或更高版本。\n\n```text\nCoderPlayer-<version>-arm64-v8a.apk\n```\n\n已安装 `0.5.6` 精简重写版的设备可以直接覆盖升级，schema 2 中的媒体索引、资料和进度会保留。若设备仍是重写前的旧产品数据，请先卸载旧版或清除应用数据；旧产品媒体库、凭据和设置不提供迁移。\n\n首次启动必须在 Android 系统设置中授予“所有文件访问”权限；授权后在应用内选择需要扫描的本机、SD 卡或 USB 目录，不再逐目录请求 SAF 权限。应用 ID 保持 `com.coderplayer.app`，正式签名和 Android `versionCode` 可覆盖当前精简版安装。\n\n后续同一重写版的更新仍需使用相同签名证书，并递增 Android `versionCode`。当前安装包不包含其他 ABI；未在目标设备实测的 HDR、TV 焦点或第三方服务行为不属于已验证支持范围。\n\n问题反馈：<https://github.com/404NotFoundYou/CoderPlayer/issues>\n\n\n**Full Changelog**: https://github.com/404NotFoundYou/CoderPlayer/compare/v0.6.3...v0.6.5",
+    "publishedAt": "2026-10-29T11:08:57Z",
+    "releaseUrl": "https://github.com/404NotFoundYou/CoderPlayer/releases/tag/v0.6.5",
+    "tag": "v0.6.5",
+    "version": "0.6.5"
+  }
+}
