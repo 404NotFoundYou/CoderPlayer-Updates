@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-30T09:34:27Z",
+  "generatedAt": "2026-10-30T18:11:37Z",
   "latest": {
-    "notes": "## What's new in CoderPlayer 0.6.8\n\n\n发布变更，2026-10-30。支持 Android 11+、arm64-v8a。\n\n### 媒体库布局\n\n- 压缩重复标题、收藏夹入口和继续观看卡片，让手机首屏更早展示海报与片名；保留自定义收藏夹封面。\n- 搜索时直接呈现结果，收藏夹使用独立标题与返回入口；返回后恢复原筛选、排序、已载入影片和浏览位置。\n- 来源、资料状态与观看状态可见且可清除；正确区分筛选无结果与空收藏夹，清除筛选不会退出当前收藏夹。\n- 排序与筛选工具栏随列表滚动保持可用；其他视频的批量匹配入口移至结果上方。\n- 多选操作提供清晰的文字菜单，按系统返回先退出选择，切换页面不残留已选项；进入多选时列表不再跳动。\n\n### 宽屏与可访问性\n\n- 宽屏自动使用侧栏导航，来源和设置列表限制内容宽度；窄屏继续使用底部导航。\n- 保留自适应海报列数与大字布局，筛选数量徽标不再覆盖读屏按钮名称。\n\n### 升级与验证范围\n\n- 从 0.6.7 升级不改变 schema 7；Android versionCode 递增至 2059，沿用正式签名证书。\n- 布局改动已通过离线回归及 Android 模拟器页面/交互验证；真实 MPV 播放、115、HDR 和外部服务仍需目标设备验收。\n- 本次不增加媒体来源、播放器或后台播放功能。\n\n\n## 下载与安装\n\nCoderPlayer 当前只提供 Android `arm64-v8a` 安装包：\n\n系统要求：Android 11 或更高版本。\n\n```text\nCoderPlayer-<version>-arm64-v8a.apk\n```\n\n已安装 `0.6.7` 精简重写版的设备可以直接覆盖升级。本次保持 schema 7，保留媒体索引、资料、收藏夹和播放进度；更早精简版本的数据迁移范围以项目验证记录为准。若设备仍是重写前的旧产品数据，请先卸载旧版或清除应用数据；旧产品媒体库、凭据和设置不提供迁移。\n\n首次启动必须在 Android 系统设置中授予“所有文件访问”权限；授权后在应用内选择需要扫描的本机、SD 卡或 USB 目录，不再逐目录请求 SAF 权限。应用 ID 保持 `com.coderplayer.app`，正式签名和 Android `versionCode` 可覆盖当前精简版安装。\n\n后续同一重写版的更新仍需使用相同签名证书，并递增 Android `versionCode`。当前安装包不包含其他 ABI；未在目标设备实测的 HDR、TV 焦点或第三方服务行为不属于已验证支持范围。\n\n应用只通过公开最小清单检查版本；发现新版本后打开已登录浏览器中的私有 Releases 页面，不在应用内下载或安装 APK。\n\n问题反馈：<https://github.com/404NotFoundYou/CoderPlayer/issues>\n\n\n**Full Changelog**: https://github.com/404NotFoundYou/CoderPlayer/compare/v0.6.7...v0.6.8",
-    "publishedAt": "2026-10-30T09:34:15Z",
-    "releaseUrl": "https://github.com/404NotFoundYou/CoderPlayer/releases/tag/v0.6.8",
-    "tag": "v0.6.8",
-    "version": "0.6.8"
+    "notes": "## What's new in CoderPlayer 0.6.9\n\n\n发布变更，2026-10-31。支持 Android 11+、arm64-v8a。\n\n### 实验元数据来源\n\n- JavBus 手动匹配支持番号和单页标题搜索；仍默认按番号，标题搜索完整展示当页全部有效候选，不自动选择第一条或自动翻页。\n- JavBus 图片请求保留精确来源防盗链信息。受控真实请求确认横向主图可下载；来源没有可靠竖版海报字段，竖版海报继续由用户从横向主图框选裁剪。\n- Caribbeancom 对上游少量损坏的 EUC-JP/Shift-JIS 行增加严格限量容错，超过行数、字节数或页面占比即拒绝页面。\n- fc2hub 支持 JSON-LD `ImageObject.contentUrl/url`，不再把图片展示名称当成 URL。当前站点仍受 Cloudflare `403` 阻断，应用不绕过验证或猜测镜像。\n- 1Pondo 和 Caribbeancom 的受控真实请求已确认资料及横向主图可读取；所有实验来源仍默认关闭、不参与批量匹配。\n\n### Android 与升级\n\n- 修复 R8 后 ML Kit 组件注册器无参构造函数被移除的问题，恢复翻译模型状态、下载和删除入口，并在 Release APK 增加注册器门禁。\n- 从 0.6.8 升级保持 schema 7；Android `versionCode` 递增至 2060，继续使用同一正式签名证书。\n- 自动化回归仍全部离线；真实 MPV 播放、115、HDR、外部存储及目标设备上的实验来源行为仍需单独验收。\n\n\n## 下载与安装\n\nCoderPlayer 当前只提供 Android `arm64-v8a` 安装包：\n\n系统要求：Android 11 或更高版本。\n\n```text\nCoderPlayer-<version>-arm64-v8a.apk\n```\n\n已安装 `0.6.8` 精简重写版的设备可以直接覆盖升级。本次保持 schema 7，保留媒体索引、资料、收藏夹和播放进度；更早精简版本的数据迁移范围以项目验证记录为准。若设备仍是重写前的旧产品数据，请先卸载旧版或清除应用数据；旧产品媒体库、凭据和设置不提供迁移。\n\n首次启动必须在 Android 系统设置中授予“所有文件访问”权限；授权后在应用内选择需要扫描的本机、SD 卡或 USB 目录，不再逐目录请求 SAF 权限。应用 ID 保持 `com.coderplayer.app`，正式签名和 Android `versionCode` 可覆盖当前精简版安装。\n\n后续同一重写版的更新仍需使用相同签名证书，并递增 Android `versionCode`。当前安装包不包含其他 ABI；未在目标设备实测的 HDR、TV 焦点或第三方服务行为不属于已验证支持范围。\n\n应用只通过公开最小清单检查版本；发现新版本后打开已登录浏览器中的私有 Releases 页面，不在应用内下载或安装 APK。\n\n问题反馈：<https://github.com/404NotFoundYou/CoderPlayer/issues>\n\n\n**Full Changelog**: https://github.com/404NotFoundYou/CoderPlayer/compare/v0.6.8...v0.6.9",
+    "publishedAt": "2026-10-30T18:11:24Z",
+    "releaseUrl": "https://github.com/404NotFoundYou/CoderPlayer/releases/tag/v0.6.9",
+    "tag": "v0.6.9",
+    "version": "0.6.9"
   },
   "schemaVersion": 2
 }
