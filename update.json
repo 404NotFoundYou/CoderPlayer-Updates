@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-02T15:06:02Z",
+  "generatedAt": "2026-11-03T02:42:40Z",
   "latest": {
-    "notes": "## What's new in CoderPlayer 0.6.12\n\n\nMaterial You 与 Apple 风格交互整改，支持 Android 11+、arm64-v8a。\n\n### 主题与交互\n\n- 外观增加独立的“跟随系统”配色，Android 12+ 使用系统 Material You 色板，旧设备回退青绿。新安装默认跟随系统，已有固定色系选择升级后保留；固定色系按深浅主题生成相应色阶。\n- 主操作、色调按钮、选中容器和错误状态使用成对的 Material 语义色，统一圆角与至少 48dp 的主要操作目标，检查浅色与深色模式下的文字对比度。\n- 统一媒体库、图库、详情、匹配、来源、设置和播放器的底部 Sheet 安全区、拖拽柄、内容裁剪与减少动态效果行为；支持拖动或系统返回关闭，未确认的筛选草稿不写入媒体库。\n- 统一窄屏 NavigationBar 与宽屏 NavigationRail 的选中指示、标签显示和触摸目标，保留现有页面状态与 Android 返回语义。\n\n### 验证边界\n\n- 新增主题、设置持久化和弹层取消回归；527 项 Flutter 离线测试通过。本地模拟器确认原生系统色板响应、配色切换、详情页边缘返回、弹层关闭和宽屏导航。\n- 真实刮削、115、MPV 硬解/HDR、外部存储和目标设备性能仍需单独验收；本版本的自动化和模拟器验证继续使用离线数据。\n\n\n## 下载与安装\n\nCoderPlayer 当前只提供 Android `arm64-v8a` 安装包：\n\n系统要求：Android 11 或更高版本。\n\n```text\nCoderPlayer-<version>-arm64-v8a.apk\n```\n\n已安装 `0.6.10` 精简重写版的设备可以直接覆盖升级。本次从 schema 7 升级到 8，新增独立图库相册记录，保留现有影片索引、资料、收藏夹和播放进度；更早精简版本的数据迁移范围以项目验证记录为准。若设备仍是重写前的旧产品数据，请先卸载旧版或清除应用数据；旧产品媒体库、凭据和设置不提供迁移。\n\n首次启动必须在 Android 系统设置中授予“所有文件访问”权限；授权后在应用内选择要扫描的视频目录，图库中另行选择相机或图片目录，也可登录 115 后选择图片目录。新增本机目录不再逐目录请求 SAF 权限。应用 ID 保持 `com.coderplayer.app`，正式签名和递增的 Android `versionCode` 可覆盖当前精简版安装。\n\n后续同一重写版的更新仍需使用相同签名证书，并递增 Android `versionCode`。当前安装包不包含其他 ABI；未在目标设备实测的 HDR、TV 焦点或第三方服务行为不属于已验证支持范围。\n\n应用只通过公开最小清单检查版本；发现新版本后打开已登录浏览器中的私有 Releases 页面，不在应用内下载或安装 APK。\n\n问题反馈：<https://github.com/404NotFoundYou/CoderPlayer/issues>\n\n\n**Full Changelog**: https://github.com/404NotFoundYou/CoderPlayer/compare/v0.6.11...v0.6.12",
-    "publishedAt": "2026-11-02T15:05:50Z",
-    "releaseUrl": "https://github.com/404NotFoundYou/CoderPlayer/releases/tag/v0.6.12",
-    "tag": "v0.6.12",
-    "version": "0.6.12"
+    "notes": "## What's new in CoderPlayer 0.6.13\n\n\n图库与播放性能优化，支持 Android 11+、arm64-v8a。\n\n### 图片与相册\n\n- 本机照片缓存增加文件身份，同路径、同大小和同修改时间的照片替换后，能够刷新为新照片。\n- 相册翻页复用有界目录快照，减少重复枚举和排序；刷新建立新的分页会话，过期时保留已有图片并提供恢复入口。\n- 修复图片查看器离开末页后手动重试无响应，以及目录刷新可能导致图片与页码错位的问题。\n- 同一 115 账号有多个相册时，移除单个相册保留共享图片缓存；移除最后一个相册、账号切换和主动清理仍会回收缓存，原文件保留。\n\n### 播放与图片清理\n\n- 章节信息在视频开播后异步加载，每章之间处理输入和生命周期事件；慢查询不阻塞退后台暂停、关闭或换片，迟到结果不覆盖新播放会话。\n- 图片清理合并重复的全库资料解析，同时保留共享图片、演员头像及导入海报的引用保护。\n\n### 升级与验证边界\n\n- 保持 schema 8，Android versionCode 递增至 2064，沿用正式签名证书。\n- 本地 540 项 Flutter、44 项 Android app JVM、10 项 Python 回归通过；专用离线模拟器完成同属性照片替换、一万图 200 页无重漏、章节跳转与前后台暂停验证。清缓存及移除相册前后，一万张合成原图哈希保持一致。\n- 真机性能、MPV 硬解/HDR、外部存储及真实 115/CDN 仍需单独验收；GitHub Actions 和发布资产以本次标签的实际运行结果为准。\n\n\n## 下载与安装\n\nCoderPlayer 当前只提供 Android `arm64-v8a` 安装包：\n\n系统要求：Android 11 或更高版本。\n\n```text\nCoderPlayer-<version>-arm64-v8a.apk\n```\n\n已安装 `0.6.11` 或更新精简版的设备可以直接覆盖升级，本次保持 schema 8。由 `0.6.10` 升级时会从 schema 7 升级到 8，新增独立图库相册记录，保留现有影片索引、资料、收藏夹和播放进度；更早精简版本的数据迁移范围以项目验证记录为准。若设备仍是重写前的旧产品数据，请先卸载旧版或清除应用数据；旧产品媒体库、凭据和设置不提供迁移。\n\n首次启动必须在 Android 系统设置中授予“所有文件访问”权限；授权后在应用内选择要扫描的视频目录，图库中另行选择相机或图片目录，也可登录 115 后选择图片目录。新增本机目录不再逐目录请求 SAF 权限。应用 ID 保持 `com.coderplayer.app`，正式签名和递增的 Android `versionCode` 可覆盖当前精简版安装。\n\n后续同一重写版的更新仍需使用相同签名证书，并递增 Android `versionCode`。当前安装包不包含其他 ABI；未在目标设备实测的 HDR、TV 焦点或第三方服务行为不属于已验证支持范围。\n\n应用只通过公开最小清单检查版本；发现新版本后打开已登录浏览器中的私有 Releases 页面，不在应用内下载或安装 APK。\n\n问题反馈：<https://github.com/404NotFoundYou/CoderPlayer/issues>\n\n\n**Full Changelog**: https://github.com/404NotFoundYou/CoderPlayer/compare/v0.6.12...v0.6.13",
+    "publishedAt": "2026-11-03T02:42:28Z",
+    "releaseUrl": "https://github.com/404NotFoundYou/CoderPlayer/releases/tag/v0.6.13",
+    "tag": "v0.6.13",
+    "version": "0.6.13"
   },
   "schemaVersion": 2
 }
