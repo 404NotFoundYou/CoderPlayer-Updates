@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-11T05:06:24Z",
+  "generatedAt": "2026-11-11T10:17:37Z",
   "latest": {
-    "notes": "## What's new in CoderPlayer 0.6.21\n\n\n递归图库、媒体库与 115 生命周期、搜索缓存和翻译性能更新，支持 Android 11+、arm64-v8a。\n\n### 图库\n\n- 列表/网格切换移到“我的相册”右侧；相册封面采用竖向卡片完整展示。\n- 二级及更深层目录与图片共用正方形网格，目录卡片显示名称和文件夹标识，图片缩略图居中裁剪铺满，点击后查看完整图片。\n- 所有层级支持独立选择或恢复默认封面；没有图片时保留目录入口，115 图片位置变化后按稳定 ID 重新查找。\n- 预览失败后可重读，合并重复刷新，分页期间的刷新会等待分页收尾；查看器返回定位计入前面的文件夹。\n\n### 性能与可靠性\n\n- 非空来源扫描按块预取身份匹配，搜索候选按唯一影片计数；短刷新窗口复用一个有界的索引判断，并合并并发探测。\n- 115 递归媒体扫描使用 SQLite 文件型 TEMP 队列和去重记录，保留全局目录唯一处理、分页完整性和取消后不提交语义，结束后清理临时状态。\n- AVDb、JavDB、DMM 及可选 provider 的详情缓存改为访问顺序 LRU，容量保持 60。\n- 翻译识别和执行对重复文本去重，严格展开到原始字段顺序；缺失映射明确失败，不能用原文掩盖错误。\n- HTTP 增加覆盖连接、接收、重试和退避的总时限；旧刮削预览不会覆盖新任务状态。\n- Surface 恢复失败进入已有错误和重试流程；115 退出采用终结门禁和后台代理清理，图片候选使用有界 LRU 和单页重验证。\n- 修复远端 JVM 门禁暴露的代理并发关闭集合快照异常与字幕转发计数时序问题。\n\nschema 保持 10，Android versionCode 递增至 2072，沿用正式签名和唯一 arm64 ABI。本轮刮削、115/CDN 和翻译验证均使用离线样本，真实服务请求为 0；真机与发布结果见 `docs/release-0.6.21-2026-11-11.md`。\n\n\n## 下载与安装\n\nCoderPlayer 当前只提供 Android `arm64-v8a` 安装包：\n\n系统要求：Android 11 或更高版本。\n\n```text\nCoderPlayer-<version>-arm64-v8a.apk\n```\n\n已安装 `0.6.11` 或更新精简版的设备可以直接覆盖升级，当前源码使用 schema 10，在已有查询索引基础上新增文件名、标题和译名的子串搜索索引，保留现有影片、图库、收藏夹和播放进度。由 `0.6.10` 升级时会先补齐 schema 8 的独立图库相册记录，再建立新索引；更早精简版本的数据迁移范围以项目验证记录为准。若设备仍是重写前的旧产品数据，请先卸载旧版或清除应用数据；旧产品媒体库、凭据和设置不提供迁移。\n\n首次启动必须在 Android 系统设置中授予“所有文件访问”权限；授权后在应用内选择要扫描的视频目录，图库中另行选择相机或图片目录，也可登录 115 后选择图片目录。新增本机目录不再逐目录请求 SAF 权限。应用 ID 保持 `com.coderplayer.app`，正式签名和递增的 Android `versionCode` 可覆盖当前精简版安装。\n\n后续同一重写版的更新仍需使用相同签名证书，并递增 Android `versionCode`。当前安装包不包含其他 ABI；未在目标设备实测的 HDR、TV 焦点或第三方服务行为不属于已验证支持范围。\n\n应用只通过公开最小清单检查版本；发现新版本后打开已登录浏览器中的私有 Releases 页面，不在应用内下载或安装 APK。\n\n问题反馈：<https://github.com/404NotFoundYou/CoderPlayer/issues>\n\n\n**Full Changelog**: https://github.com/404NotFoundYou/CoderPlayer/compare/v0.6.20...v0.6.21",
-    "publishedAt": "2026-11-11T05:06:13Z",
-    "releaseUrl": "https://github.com/404NotFoundYou/CoderPlayer/releases/tag/v0.6.21",
-    "tag": "v0.6.21",
-    "version": "0.6.21"
+    "notes": "## What's new in CoderPlayer 0.6.22\n\n\n图库混合媒体浏览更新，支持 Android 11+、arm64-v8a。\n\n### 图库\n\n- 当前目录同时展示子文件夹、图片和视频，继续沿用现有图库网格、封面和查看器布局。\n- 图片点击进入图库查看器，视频点击复用现有 MPV 播放会话；图片与视频不建立自动关联。\n- 本机和 115 使用混合目录分页，视频不参与图片封面和图片数量统计，也不写入媒体库或触发刮削。\n\nschema 保持 10，Android versionCode 递增至 2073，沿用正式签名和唯一 arm64 ABI。本轮自动化验证使用离线样本，真实设备、真实 115 和正式发布状态以本轮构建记录为准。\n\n\n## 下载与安装\n\nCoderPlayer 当前只提供 Android `arm64-v8a` 安装包：\n\n系统要求：Android 11 或更高版本。\n\n```text\nCoderPlayer-<version>-arm64-v8a.apk\n```\n\n已安装 `0.6.11` 或更新精简版的设备可以直接覆盖升级，当前源码使用 schema 10，在已有查询索引基础上新增文件名、标题和译名的子串搜索索引，保留现有影片、图库、收藏夹和播放进度。由 `0.6.10` 升级时会先补齐 schema 8 的独立图库相册记录，再建立新索引；更早精简版本的数据迁移范围以项目验证记录为准。若设备仍是重写前的旧产品数据，请先卸载旧版或清除应用数据；旧产品媒体库、凭据和设置不提供迁移。\n\n首次启动必须在 Android 系统设置中授予“所有文件访问”权限；授权后在应用内选择要扫描的视频目录，图库中另行选择相机或图片目录，也可登录 115 后选择图片目录。新增本机目录不再逐目录请求 SAF 权限。应用 ID 保持 `com.coderplayer.app`，正式签名和递增的 Android `versionCode` 可覆盖当前精简版安装。\n\n后续同一重写版的更新仍需使用相同签名证书，并递增 Android `versionCode`。当前安装包不包含其他 ABI；未在目标设备实测的 HDR、TV 焦点或第三方服务行为不属于已验证支持范围。\n\n应用只通过公开最小清单检查版本；发现新版本后打开已登录浏览器中的私有 Releases 页面，不在应用内下载或安装 APK。\n\n问题反馈：<https://github.com/404NotFoundYou/CoderPlayer/issues>\n\n\n**Full Changelog**: https://github.com/404NotFoundYou/CoderPlayer/compare/v0.6.21...v0.6.22",
+    "publishedAt": "2026-11-11T10:17:26Z",
+    "releaseUrl": "https://github.com/404NotFoundYou/CoderPlayer/releases/tag/v0.6.22",
+    "tag": "v0.6.22",
+    "version": "0.6.22"
   },
   "schemaVersion": 2
 }
